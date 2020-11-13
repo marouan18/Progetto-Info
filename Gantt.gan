@@ -33,7 +33,7 @@
             <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
-        <task id="9" name="Copia_Progettazione" color="#8cb6ce" meeting="false" start="2020-11-14" duration="2" complete="0" thirdDate="2020-11-16" thirdDate-constraint="0" expand="true">
+        <task id="9" name="Documentazione" color="#8cb6ce" meeting="false" start="2020-11-14" duration="2" complete="0" thirdDate="2020-11-16" thirdDate-constraint="0" expand="true">
             <depend id="4" type="2" difference="0" hardness="Strong"/>
             <task id="10" name="AS Is" color="#8cb6ce" meeting="false" start="2020-11-14" duration="1" complete="0" thirdDate="2020-11-10" thirdDate-constraint="0" expand="true"/>
             <task id="12" name="To be" color="#8cb6ce" meeting="false" start="2020-11-14" duration="1" complete="0" thirdDate="2020-11-10" thirdDate-constraint="0" expand="true"/>
