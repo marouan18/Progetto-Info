@@ -1,0 +1,72 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    font-size: 20px;
+    padding: 16px;
+    text-align: center;
+    margin-top: initial;
+}
+
+nav a {
+    float: right;
+    display: block;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 5px 7px;
+    font-size: 17px;
+}
+
+nav a:hover {
+    background-color: black;
+    color: white;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+form.example input[type=text] {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 80%;
+    background: #f1f1f1;
+}
+
+form.example button {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    background: rgb(11, 103, 223);
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+}
+
+form.example::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+html,
+body,
+.container {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+div.container {
+    padding: 0 6px;
+    float: left;
+    width: 44.9999%;
+}
+
+
+/*https://wgbh.brightspotcdn.com/dims4/default/8bea96c/2147483647/strip/true/crop/894x488+3+73/resize/990x540!/format/jpg/quality/70/?url=http%3A%2F%2Fcdn-news.wgbh.org%2Fs3fs-public%2F2017-07-26-08-03-24-900x596_dictionary_magnify.jpg*/
