@@ -32,9 +32,7 @@
         <input id="id1" type="text" placeholder="search" name="search2">
         <button  type="submit" name="ok"  ><i class="fa fa-search"></i></button>
     </form>
-
 <?php
-
 if(isset($_GET['ok'])){
   echo ($_GET['search2']);
   $word=Trim($_GET['search2']);
@@ -47,25 +45,6 @@ if(isset($_GET['ok'])){
     exit();
   }
 }
-
-
-// Create connection
-
-// Check connection
-
-/*
-$sql = "SELECT * FROM parole where nome='Aam' ";
-$result = $conn->query($sql);
-if($result->num_rows > 0 ){
-  // output data of each row
-  while($row = $result->fetch_assoc()) {
-    echo "significato: " . $row["significato"]. " - Name: " . $row["Nome"]. " " . $row["Abbreviazione"]. "<br>";
-  }
-} else {
-  echo "0 results";
-}
-$conn->close();
-*/
 ?>
   <br><br>
   <h1 style=" font-size:30px;color: rgb(11, 103, 223);"> THE WORDS OF THE DAY</h1>  
