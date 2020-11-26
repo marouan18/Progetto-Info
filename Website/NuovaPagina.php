@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,16 +32,10 @@
         <button  type="submit" name="ok"  ><i class="fa fa-search"></i></button>
     </form>
 
-<?php
-$firstTime=true;
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "dictionary";
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
+</body>
+  </html>
+  <?php
+include("database.php");
 if(!isset($_GET['ok'])){
 $firstTime=false;
 $word=$_GET['search2'];
@@ -81,6 +74,3 @@ echo "</div><br><hr>";
 
 
 ?>
-
-</body>
-  </html>

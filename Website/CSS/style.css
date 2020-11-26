@@ -1,0 +1,52 @@
+.Titolo {
+    text-align: center;
+}
+
+.Nome {
+    color: white;
+    padding: 5px 7px;
+    font-size: 17px;
+}
+
+.navbar-nav {
+    flex-direction: row;
+}
+
+.nav-link {
+    padding-right: .5rem !important;
+    padding-left: .5rem !important;
+}
+
+form.example input[type=text] {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 80%;
+    background: #f1f1f1;
+}
+
+form.example button {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    background: rgb(11, 103, 223);
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+}
+
+form.example::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+h1 {
+    font-size: 20px;
+    padding: 16px;
+    text-align: center;
+    margin-top: initial;
+}

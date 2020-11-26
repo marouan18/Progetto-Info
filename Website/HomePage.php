@@ -1,7 +1,20 @@
-
+<?php
+if(isset($_GET['ok'])){
+  echo ($_GET['search2']);
+  $word=Trim($_GET['search2']);
+  $regex= "/([^A-z '])/";
+  if(preg_match($regex, $word)||empty($word)){
+    echo "<script type='text/javascript'>alert('la tua ricerca per '+$word+' non ha prodotto risultati');</script>";
+  }
+  else{
+    header("Location:NuovaPagina.php?search2=".$_GET['search2']);  
+    exit();
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head>  
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="CSS/Stylesheet.css">
@@ -32,20 +45,6 @@
         <input id="id1" type="text" placeholder="search" name="search2">
         <button  type="submit" name="ok"  ><i class="fa fa-search"></i></button>
     </form>
-<?php
-if(isset($_GET['ok'])){
-  echo ($_GET['search2']);
-  $word=Trim($_GET['search2']);
-  $regex= "/([^A-z '])/";
-  if(preg_match($regex, $word)||empty($word)){
-    echo "<script type='text/javascript'>alert('la tua ricerca per '+$word+' non ha prodotto risultati');</script>";
-  }
-  else{
-    header("Location:NuovaPagina.php?search2=".$_GET['search2']);  
-    exit();
-  }
-}
-?>
   <br><br>
   <h1 style=" font-size:30px;color: rgb(11, 103, 223);"> THE WORDS OF THE DAY</h1>  
   <div class="container">
