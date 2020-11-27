@@ -1,10 +1,13 @@
 <?php
-include("dal.php");
+session_start();
+include_once("session.php");
+include_once("dal.php");
+
 ?>
 <html lang="en">
 <head>
 <meta name="description" content="Bootstrap.">
-<link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
@@ -35,9 +38,9 @@ include("dal.php");
 </nav>
 <br><br><br>
 <div class="container">
-        <div class="row header">
-        </div>
-        <table id="myTable" class="table table-striped">
+  <div class="row header">
+  </div>
+  <table id="myTable" >
   <thead>
     <tr>
       <th scope="col">ID</th>
@@ -50,8 +53,19 @@ include("dal.php");
   <?php Caricaretabella()?>
   </tbody>
 </table>    
-
 </div>
+<br>
+
+<form class="example"  method="POST" style="margin:auto;max-width:500px;">
+<label >Inserire Id della parola</label>
+<input id="id1" type="text" placeholder="search" name="search2">
+<button  type="submit" name="ok"  ><i class="fa fa-search"></i></button>
+</form>
+<form class="example"method="POST" style="margin:auto;max-width:500px;">
+<button class="btn btn-primary" type="submit">Modifica</button>
+<button class="btn btn-primary" type="submit">Elimina/button>
+</form>
+
 </body>
 <script>
 $(document).ready(function() {

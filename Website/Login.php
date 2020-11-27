@@ -1,16 +1,17 @@
 <?php
-$error="";
 session_start();
+$error="";
 include_once("database.php");
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-$_SESSION['username'] =$_POST['uname'];
-$_SESSION['passw'] =$_POST['psw'];
-$query = "SELECT * FROM users WHERE username = '".$_SESSION['username']."'";
+$username =$_POST['uname'];
+$password =$_POST['psw'];
+$query = "SELECT * FROM users WHERE username = '".$username."'";
 $result = $conn->query($query);
 if($result->num_rows>0){
     $row=$result->fetch_assoc();
-    if(password_verify($_SESSION['passw'],$row['password'])){
-            header("location:modify.php");
+    if(password_verify($password,$row['password'])){
+        $_SESSION['login'] =$username;    
+        header("location:modify.php");
             exit();
     }
     else{
