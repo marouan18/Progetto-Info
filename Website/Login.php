@@ -30,7 +30,6 @@ if($result->num_rows>0){
     <link rel="stylesheet" href="CSS/StyleLogin.css">
     <script src="Javascript/scripts.js"></script>
 </head>
-
 <body onload="EsciDallaPagina()">
     <div id="id01" class="modal">
         <form class="modal-content animate" action="" method="post">
