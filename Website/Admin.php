@@ -16,7 +16,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     exit();
   }
   elseif(isset($_POST['add'])){
-    
+    header("location:Aggiungi.php");
+    exit();
   }
   else{
     EliminaRiga($_POST['search2']);

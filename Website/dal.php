@@ -13,7 +13,7 @@ return $conn;
 
 function Caricaretabella(){
 $conn=DataConnect();
-$query = "SELECT * FROM parole limit 100 ";
+$query = "SELECT * FROM parole";
 $result = $conn->query($query);
 while($row = $result->fetch_assoc()){
 echo " <tr> <th scope='row'>".$row['Id']."</th>";
@@ -47,20 +47,18 @@ if ($conn->affected_rows==1) {
   $conn->close();
 }
 
-function Modificariga($id,$word,$type,$mean){
+function OperazioneRiga($query){
 $conn=DataConnect();
-$query= "UPDATE parole SET Nome='".$word."', Abbreviazione='".$type."', significato='".$mean."' WHERE Id=".$id."";
 $return="";
 if($conn->query($query)===true){
- $return="modifica eseguita con successo";
+ $return="Operazione eseguita con successo";
 }
 else{
-    $return="modifica non eseguita";
+    $return="operazione non eseguita";
 }
 $conn->close();
 return $return;
 }
-
 function CaricaRiga($id){
     $conn=DataConnect();
     $query= "SELECT * FROM parole where id=$id";
@@ -69,4 +67,40 @@ function CaricaRiga($id){
     return $row;  
 }
 
+function CercaParole($query){
+ 
+  $conn=DataConnect();
+  $result = $conn->query($query);
+  $html="";
+  if($result->num_rows > 0 )
+  {
+  $row = $result->fetch_assoc();
+  $html.= "<h3>".$row['Nome']." ".$row['Abbreviazione']."</h3>";
+  $html.= " <div>";
+  $splitted=explode(";",$row['significato']);
+  for($i=0;$i<count($splitted);$i++)
+  {
+    $J=$i+1;
+    $html.= " <p>".$J." : ".$splitted[$i]. "</p>";  
+  }
+  $html.= "</div><br><hr>";
+  if($row = $result->fetch_assoc())
+  {
+    $html.= "<h3> more definitions for ".$row['Nome']."</h3><br><br> ";
+  // output data of each row
+    while($row = $result->fetch_assoc()) {
+      $html.= "<h3>".$row['Nome']." ".$row['Abbreviazione']."</h3><div>";
+      $splitted=explode(";",$row['significato']);
+  for($i=0;$i<count($splitted);$i++)
+  {
+    $J=$i+1;
+    $html.= "<p>".$J." : ".$splitted[$i]. "</p>";  
+  }
+  $html.= "</div><br><hr>";
+    }
+  }else {
+    $html.= "parola non trovata";
+   }}
+  return $html;
+}
 ?>

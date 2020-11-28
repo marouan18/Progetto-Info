@@ -7,19 +7,18 @@ if(isset($_POST['conferma'])){
     $word=$_POST['voce'];
     $type=$_POST['type'];
     $mean=$_POST['mean'];
-    echo "<script type='text/javascript'>alert(".Modificariga($_SESSION['id'],$word,$type,$mean).");</script>"; 
-    header("location:modify.php");
+    $sql= "UPDATE parole SET Nome='".$word."', Abbreviazione='".$type."', significato='".$mean."' WHERE Id=".$id."";
+    echo "<script type='text/javascript'>alert(".OperazioneRiga($_SESSION['id'],$word,$type,$mean,$sql).");</script>"; 
+    header("location:Admin.php");
     exit();
 }
 else{
-    header("location:modify.php");
+    header("location:Admin.php");
     exit();
 }}
-
 ?>
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="CSS/StyleLogin.css">
@@ -32,7 +31,6 @@ else{
                 <span onclick=" window.history.back()" class="close" title="Close Modal">&times;</span>
             </div>
             <div class="container">
-                
                 <label for="voce"><b>Voce</b></label>
                 <input type="text" name="voce" value="<?php echo CaricaRiga($_SESSION['id'])['Nome'];?>" required>
                 <label for="type"><b>Tipologia</b></label>

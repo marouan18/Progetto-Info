@@ -1,13 +1,12 @@
 <?php
 if(isset($_GET['ok'])){
-  echo ($_GET['search2']);
   $word=Trim($_GET['search2']);
   $regex= "/([^A-z '])/";
   if(preg_match($regex, $word)||empty($word)){
     echo "<script type='text/javascript'>alert('la tua ricerca per '+$word+' non ha prodotto risultati');</script>";
   }
   else{
-    header("Location:NuovaPagina.php?search2=".$_GET['search2']);  
+    header("Location:Parola.php?search2=".$_GET['search2']);  
     exit();
   }
 }

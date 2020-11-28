@@ -35,41 +35,23 @@
 </body>
   </html>
   <?php
-include("database.php");
+include("dal.php");
 if(!isset($_GET['ok'])){
+$conn=DataConnect();
 $firstTime=false;
 $word=$_GET['search2'];
 $sql = "SELECT * FROM parole where nome='".$word."'";
-$result = $conn->query($sql);
-if($result->num_rows > 0 ){
-$row = $result->fetch_assoc();
-echo "<h3>".$row['Nome']." ".$row['Abbreviazione']."</h3>";
-echo "<div>";
-$splitted=explode(";",$row['significato']);
-for($i=0;$i<count($splitted);$i++)
-{
-    echo "<p>".$i." : ".$splitted[$i]. "</p>";  
-}
-echo "</div><br><hr>";
-if($row = $result->fetch_assoc()){
-  echo "<h3> more definitions for ".$row['Nome']."</h3><br><br> ";
-// output data of each row
-  while($row = $result->fetch_assoc()) {
-    echo "<h3>".$row['Nome']." ".$row['Abbreviazione']."</h3><div>";
-    $splitted=explode(";",$row['significato']);
-for($i=0;$i<count($splitted);$i++)
-{
-    echo "<p>".$i." : ".$splitted[$i]. "</p>";  
-}
-echo "</div><br><hr>";
-  }
-
-}
-} else {
-  echo "0 results";
-}
+echo CercaParole($sql);
 }else{
-
+  $word=Trim($_GET['search2']);
+  $regex= "/([^A-z '])/";
+  if(preg_match($regex, $word)||empty($word)){
+    echo "<script type='text/javascript'>alert('la tua ricerca per '+$word+' non ha prodotto risultati');</script>";
+  }
+  else{
+    header("Location:Parola.php?search2=".$_GET['search2']);  
+    exit();
+  }
 }
 
 
