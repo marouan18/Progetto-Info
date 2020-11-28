@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once("session.php");
-include_once("dal.php");
+include_once("../dal.php");
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   $word=Trim($_POST['search2']);
@@ -32,7 +32,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
-    <script type="text/javascript" src="javascript/scripts.js">
+    <script type="text/javascript" src="../../javascript/scripts.js">
 
 
 
@@ -92,9 +92,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 $(document).ready(function(){
   $('#myTable').dataTable();
 });
-
 document.onkeypress = stopRKey;
-
 </script>
 
 </html>

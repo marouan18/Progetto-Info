@@ -1,6 +1,6 @@
 <?php
-include('database.php');
-
+include('../dal.php');
+$conn=DataConnect();
 $user_check = $_SESSION['login'];
 
 $ses_sql = $conn->query("SELECT username FROM users WHERE username = '$user_check'");

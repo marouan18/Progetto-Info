@@ -16,9 +16,9 @@ if(isset($_GET['ok'])){
 <head>  
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="CSS/Stylesheet.css">
+  <link rel="stylesheet" href="../../CSS/Stylesheet.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="Javascript/scripts.js"></script>
+  <script src="../../Javascript/scripts.js"></script>
 </head>
 <body>
 <h1 class="Titolo">
@@ -28,7 +28,7 @@ if(isset($_GET['ok'])){
   <i class="Nome">My Dictionary</i>
   <ul class="navbar-nav ml-auto">
     <li class="active">
-      <a class="nav-link" href="Login.php">Login</a>
+      <a class="nav-link" href="../Admin/Login.php">Login</a>
     </li>
     <li class="active">
       <a class="nav-link" href="">Contact</a>
