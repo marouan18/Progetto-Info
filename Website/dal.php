@@ -98,9 +98,47 @@ function CercaParole($query){
   }
   $html.= "</div><br><hr>";
     }
-  }else {
+  }}else {
     $html.= "parola non trovata";
-   }}
+   }
   return $html;
 }
+function RicercaNelSignificato($query,$word)
+{
+  $conn=DataConnect();
+  $result = $conn->query($query);
+  $html="";
+  
+  if($result->fetch_row()>0)
+  {
+    $html.="<h3> ricerca per parola chiave";
+  // output data of each row
+    while($row = $result->fetch_assoc()) {
+      $html.= "<h3>".$row['Nome']." ".$row['Abbreviazione']."</h3><div>";
+      $splitted=explode(";",$row['significato']);
+      $regex="/(".$word.")/";
+  for($i=0;$i<count($splitted);$i++)
+  {
+    $J=$i+1;
+    if(strpos($word,$splitted[$i])===false){
+      $splitted2=explode(" ",$splitted[$i]);
+      $html.="<p>".$J." : ";
+      foreach($splitted2 as &$p){
+        if(preg_match($regex, $p)){
+        $html.="<b>".$p." </b>";
+        }
+        else{
+          $html.=$p." ";
+        }      
+      }  
+      $html.="</p>";
+    }
+    else{
+    $html.= "<p>".$J." : ".$splitted[$i]. "</p>";  
+  }}
+  $html.= "</div><br><hr>";
+    }
+  }
+   return $html;
+  }
 ?>

@@ -42,7 +42,11 @@ $firstTime=false;
 $word=$_GET['search2'];
 $sql = "SELECT * FROM parole where nome='".$word."'";
 echo CercaParole($sql);
-}else{
+$sql="SELECT * FROM parole where significato LIKE '%".$word."%'";
+if(!empty(RicercaNelSignificato($sql,$word)))
+{
+  echo RicercaNelSignificato($sql,$word);
+}}else{
   $word=Trim($_GET['search2']);
   $regex= "/([^A-z '])/";
   if(preg_match($regex, $word)||empty($word)){
