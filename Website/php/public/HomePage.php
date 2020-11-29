@@ -1,4 +1,6 @@
 <?php
+include_once("../dal.php");
+$DbRows=countRows();
 if(isset($_GET['ok'])){
   $word=Trim($_GET['search2']);
   $regex= "/([^A-z '])/";
@@ -14,9 +16,10 @@ if(isset($_GET['ok'])){
 <!DOCTYPE html>
 <html lang="en">
 <head>  
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../../CSS/Stylesheet.css">
+  
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../../css/Stylesheet.css">   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="../../Javascript/scripts.js"></script>
 </head>
@@ -30,32 +33,25 @@ if(isset($_GET['ok'])){
     <li class="active">
       <a class="nav-link" href="../Admin/Login.php">Login</a>
     </li>
-    <li class="active">
-      <a class="nav-link" href="">Contact</a>
-    </li>
-    <li class="active">
-      <a class="nav-link" href="">AboutUs</a>
-    </li>
   </ul>
 </nav>
 <br>
 <form class="example"  method="GET" style="margin:auto;max-width:500px;">
-
         <input id="id1" type="text" placeholder="search" name="search2">
         <button  type="submit" name="ok"  ><i class="fa fa-search"></i></button>
     </form>
   <br><br>
-  <h1 style=" font-size:30px;color: rgb(11, 103, 223);"> THE WORDS OF THE DAY</h1>  
+  <h1 id="Paroloni"> DID YOU KNOW?</h1>  
+  <br><br>
   <div class="container">
-          <h2 style="text-align:left; color: rgb(11, 103, 223);">Abacus</h2>
-          <p style="color: rgb(11, 103, 223);">noun</p>
-          <p>A tablet, panel, or compartment in ornamented or mosaic work.</p>
+          <h2 ><?php echo CaricaRiga(rand(400,$DbRows))['Nome'] ?></h2>
+          <p class="paragrafi"><?php echo CaricaRiga(rand(400,$DbRows))['Abbreviazione'] ?></p>
+          <p><?php echo CaricaRiga(rand(400,$DbRows))['significato'] ?></p>
       </div>
       <div class="container">
-          <h2 style="text-align:left;color: rgb(11, 103, 223);">Abacus</h2>
-          <p style="text-align:left;color: rgb(11, 103, 223);">noun</p>
-          <p style="text-align:left;">A tablet, panel, or compartment in ornamented or mosaic work.</p>
+          <h2 ><?php echo CaricaRiga(rand(400,$DbRows))['Nome'] ?></h2>
+          <p class="paragrafi"><?php echo CaricaRiga(rand(400,$DbRows))['Abbreviazione'] ?></p>
+          <p><?php echo CaricaRiga(rand(400,$DbRows))['significato'] ?></p>
       </div>
-
     </body>
   </html>

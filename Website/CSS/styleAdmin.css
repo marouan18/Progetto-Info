@@ -2,24 +2,6 @@
     text-align: center;
 }
 
-h2 {
-    text-align: left !important;
-    color: rgb(11, 103, 223) !important;
-}
-
-h3 {
-    text-align: center !important;
-}
-
-#Paroloni {
-    font-size: 30px !important;
-    color: rgb(11, 103, 223) !important;
-}
-
-.paragrafi {
-    color: rgb(11, 103, 223) !important;
-}
-
 .Nome {
     color: white;
     padding: 5px 7px;
@@ -67,18 +49,4 @@ h1 {
     padding: 16px;
     text-align: center;
     margin-top: initial;
-}
-
-html,
-body,
-.container {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-div.container {
-    padding: 0 6px;
-    float: left;
-    width: 44.9999%;
 }

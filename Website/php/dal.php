@@ -13,7 +13,7 @@ return $conn;
 
 function Caricaretabella(){
 $conn=DataConnect();
-$query = "SELECT * FROM parole";
+$query = "SELECT * FROM parole limit 500 ";
 $result = $conn->query($query);
 while($row = $result->fetch_assoc()){
 echo " <tr> <th scope='row'>".$row['Id']."</th>";
@@ -49,14 +49,13 @@ if ($conn->affected_rows==1) {
 
 function OperazioneRiga($query){
 $conn=DataConnect();
-$return="";
+$return=" ";
 if($conn->query($query)===true){
  $return="Operazione eseguita con successo";
 }
 else{
     $return="operazione non eseguita";
 }
-$conn->close();
 return $return;
 }
 function CaricaRiga($id){
@@ -75,7 +74,7 @@ function CercaParole($query){
   if($result->num_rows > 0 )
   {
   $row = $result->fetch_assoc();
-  $html.= "<h3>".$row['Nome']." ".$row['Abbreviazione']."</h3>";
+  $html.= "<h2>".$row['Nome']." ".$row['Abbreviazione']."</h2>";
   $html.= " <div>";
   $splitted=explode(";",$row['significato']);
   for($i=0;$i<count($splitted);$i++)
@@ -89,7 +88,7 @@ function CercaParole($query){
     $html.= "<h3> more definitions for ".$row['Nome']."</h3><br><br> ";
   // output data of each row
     while($row = $result->fetch_assoc()) {
-      $html.= "<h3>".$row['Nome']." ".$row['Abbreviazione']."</h3><div>";
+      $html.= "<h2>".$row['Nome']." ".$row['Abbreviazione']."</h2><div>";
       $splitted=explode(";",$row['significato']);
   for($i=0;$i<count($splitted);$i++)
   {
@@ -99,7 +98,7 @@ function CercaParole($query){
   $html.= "</div><br><hr>";
     }
   }}else {
-    $html.= "parola non trovata";
+    $html.= "<br><br><h3>parola non trovata</h3>";
    }
   return $html;
 }
@@ -111,10 +110,10 @@ function RicercaNelSignificato($query,$word)
   
   if($result->fetch_row()>0)
   {
-    $html.="<h3> ricerca per parola chiave";
+    $html.="<br><br><h3> ricerca per parola chiave</h3>";
   // output data of each row
     while($row = $result->fetch_assoc()) {
-      $html.= "<h3>".$row['Nome']." ".$row['Abbreviazione']."</h3><div>";
+      $html.= "<h2>".$row['Nome']." ".$row['Abbreviazione']."</h2><div>";
       $splitted=explode(";",$row['significato']);
       $regex="/(".$word.")/";
   for($i=0;$i<count($splitted);$i++)
@@ -140,5 +139,13 @@ function RicercaNelSignificato($query,$word)
     }
   }
    return $html;
+  }
+
+  function countRows(){
+    $conn=DataConnect();
+    $sql="SELECT count(*) as 'count' FROM `parole`";
+    $result=$conn->query($sql);
+    $row=$result->fetch_assoc();
+    return intval($row['count']);
   }
 ?>

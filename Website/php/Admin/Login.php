@@ -28,7 +28,7 @@ if($result->num_rows>0){
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../../CSS/StyleLogin.css">
+    <link rel="stylesheet" href="../../CSS/Style.css">
     <script src="../../Javascript/scripts.js"></script>
 </head>
 <body onload="EsciDallaPagina()">
