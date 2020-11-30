@@ -1,0 +1,5 @@
+RewriteEngine on
+RewriteRule ^HomePage$ index.php
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^Private/([^\.]+)$ Admin/$1.php [NC,L]

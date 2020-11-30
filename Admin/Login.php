@@ -12,7 +12,7 @@ if($result->num_rows>0){
     $row=$result->fetch_assoc();
     if(password_verify($password,$row['password'])){
         $_SESSION['login'] =$username;    
-        header("location:Admin.php");
+        header("location:Admin");
             exit();
     }
     else{
@@ -28,8 +28,8 @@ if($result->num_rows>0){
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../../CSS/Style.css">
-    <script src="../../Javascript/scripts.js"></script>
+    <link rel="stylesheet" href="../CSS/Style.css">
+    <script src="../Javascript/scripts.js"></script>
 </head>
 <body onload="EsciDallaPagina()">
     <div id="id01" class="modal">

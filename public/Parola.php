@@ -3,9 +3,9 @@
 <head>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../../css/Stylesheet.css">
+  <link rel="stylesheet" href="../css/Stylesheet.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="../../Javascript/scripts.js"></script>
+  <script src="../Javascript/scripts.js"></script>
 </head>
 <body>
 <h1 class="Titolo">
@@ -15,7 +15,7 @@
   <i class="Nome">My Dictionary</i>
   <ul class="navbar-nav ml-auto">
     <li class="active">
-      <a class="nav-link" href="../Admin/Login.php">Login</a>
+      <a class="nav-link" href="../Private/Login">Login</a>
     </li>
   </ul>
 </nav>
@@ -35,18 +35,18 @@ $firstTime=false;
 $word=$_GET['search2'];
 $sql = "SELECT * FROM parole where nome='".$word."'";
 echo CercaParole($sql);
-$sql="SELECT * FROM parole where significato LIKE '%".$word."%'";
+$sql="SELECT * FROM parole where significato LIKE '".$word."_'";
 if(!empty(RicercaNelSignificato($sql,$word)))
 {
   echo RicercaNelSignificato($sql,$word);
 }}else{
   $word=Trim($_GET['search2']);
-  $regex= "/([^A-z '])/";
+  $regex= "/([^A-z'])/";
   if(preg_match($regex, $word)||empty($word)){
     echo "<script type='text/javascript'>alert('la tua ricerca per '+$word+' non ha prodotto risultati');</script>";
   }
   else{
-    header("Location:Parola.php?search2=".$_GET['search2']);  
+    header("Location:parola.php?search2=".$_GET['search2']);  
     exit();
   }
 }

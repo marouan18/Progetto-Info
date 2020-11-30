@@ -2,6 +2,6 @@
 include("session.php");
 session_start();
 if(session_destroy()){
-    header('location:::/public/HomePage.php');
+    header('location: ../../HomePage');
 }
 ?>

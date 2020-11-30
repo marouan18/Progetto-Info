@@ -1,6 +1,8 @@
 <?php
-include_once("../dal.php");
+include_once("dal.php");
 $DbRows=countRows();
+$Random1= rand(0,$DbRows);
+$Random2= rand(0,$DbRows);
 if(isset($_GET['ok'])){
   $word=Trim($_GET['search2']);
   $regex= "/([^A-z '])/";
@@ -8,7 +10,7 @@ if(isset($_GET['ok'])){
     echo "<script type='text/javascript'>alert('la tua ricerca per '+$word+' non ha prodotto risultati');</script>";
   }
   else{
-    header("Location:Parola.php?search2=".$_GET['search2']);  
+    header("Location:public/parola.php?search2=".$_GET['search2']);  
     exit();
   }
 }
@@ -19,9 +21,9 @@ if(isset($_GET['ok'])){
   
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../../css/Stylesheet.css">   
+  <link rel="stylesheet" href="css/Stylesheet.css">   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="../../Javascript/scripts.js"></script>
+  <script src="Javascript/scripts.js"></script>
 </head>
 <body>
 <h1 class="Titolo">
@@ -31,7 +33,7 @@ if(isset($_GET['ok'])){
   <i class="Nome">My Dictionary</i>
   <ul class="navbar-nav ml-auto">
     <li class="active">
-      <a class="nav-link" href="../Admin/Login.php">Login</a>
+      <a class="nav-link" href="Private/Login">Login</a>
     </li>
   </ul>
 </nav>
@@ -44,14 +46,14 @@ if(isset($_GET['ok'])){
   <h1 id="Paroloni"> DID YOU KNOW?</h1>  
   <br><br>
   <div class="container">
-          <h2 ><?php echo CaricaRiga(rand(400,$DbRows))['Nome'] ?></h2>
-          <p class="paragrafi"><?php echo CaricaRiga(rand(400,$DbRows))['Abbreviazione'] ?></p>
-          <p><?php echo CaricaRiga(rand(400,$DbRows))['significato'] ?></p>
+          <h2 ><?php echo CaricaRiga($Random1)['Nome'] ?></h2>
+          <p class="paragrafi"><?php echo CaricaRiga($Random1)['Tipologia'] ?></p>
+          <p><?php echo CaricaRiga($Random1)['significato'] ?></p>
       </div>
       <div class="container">
-          <h2 ><?php echo CaricaRiga(rand(400,$DbRows))['Nome'] ?></h2>
-          <p class="paragrafi"><?php echo CaricaRiga(rand(400,$DbRows))['Abbreviazione'] ?></p>
-          <p><?php echo CaricaRiga(rand(400,$DbRows))['significato'] ?></p>
+          <h2 ><?php echo CaricaRiga($Random2)['Nome'] ?></h2>
+          <p class="paragrafi"><?php echo CaricaRiga($Random2)['Tipologia'] ?></p>
+          <p><?php echo CaricaRiga($Random2)['significato'] ?></p>
       </div>
     </body>
   </html>

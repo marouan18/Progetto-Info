@@ -12,14 +12,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   if(isset($_POST['modify']))
   {
     $_SESSION['id']=$word;
-    header("location:modifica.php");
+    header("location:modifica");
     exit();
   }
   else{
     EliminaRiga($_POST['search2']);
   }}  
   if(isset($_POST['add'])){
-    header("location:Aggiungi.php");
+    header("location:Aggiungi");
     exit();
   }
 }
@@ -27,12 +27,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <html lang="en">
 <head>
 <meta name="description" content="Bootstrap.">
-    <link rel="stylesheet" href="../../CSS/styleAdmin.css">
+    <link rel="stylesheet" href="../CSS/styleAdmin.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
-    <script type="text/javascript" src="../../javascript/scripts.js"></script>
+    <script type="text/javascript" src="../javascript/scripts.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
   
@@ -45,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <i class="Nome">My Dictionary</i>
   <ul class="navbar-nav ml-auto">
     <li class="active">
-      <a class="nav-link" href="Logout.php">Logout</a>
+      <a class="nav-link" href="Logout">Logout</a>
     </li>
   </ul>
 </nav>

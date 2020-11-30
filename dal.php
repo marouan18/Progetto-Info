@@ -18,7 +18,7 @@ $result = $conn->query($query);
 while($row = $result->fetch_assoc()){
 echo " <tr> <th scope='row'>".$row['Id']."</th>";
 echo "<td>".$row['Nome']."</td>";
-echo "<td>".$row['Abbreviazione']."</td>";
+echo "<td>".$row['Tipologia']."</td>";
 echo "<td>".$row['significato']."</td> </tr>";
 }}
 
@@ -74,7 +74,7 @@ function CercaParole($query){
   if($result->num_rows > 0 )
   {
   $row = $result->fetch_assoc();
-  $html.= "<h2>".$row['Nome']." ".$row['Abbreviazione']."</h2>";
+  $html.= "<h2>".$row['Nome']." ".$row['Tipologia']."</h2>";
   $html.= " <div>";
   $splitted=explode(";",$row['significato']);
   for($i=0;$i<count($splitted);$i++)
@@ -88,7 +88,7 @@ function CercaParole($query){
     $html.= "<h3> more definitions for ".$row['Nome']."</h3><br><br> ";
   // output data of each row
     while($row = $result->fetch_assoc()) {
-      $html.= "<h2>".$row['Nome']." ".$row['Abbreviazione']."</h2><div>";
+      $html.= "<h2>".$row['Nome']." ".$row['Tipologia']."</h2><div>";
       $splitted=explode(";",$row['significato']);
   for($i=0;$i<count($splitted);$i++)
   {
@@ -113,9 +113,9 @@ function RicercaNelSignificato($query,$word)
     $html.="<br><br><h3> ricerca per parola chiave</h3>";
   // output data of each row
     while($row = $result->fetch_assoc()) {
-      $html.= "<h2>".$row['Nome']." ".$row['Abbreviazione']."</h2><div>";
+      $html.= "<h2>".$row['Nome']." ".$row['Tipologia']."</h2><div>";
       $splitted=explode(";",$row['significato']);
-      $regex="/(".$word.")/";
+      $regex="/\b(".$word.")\b/";
   for($i=0;$i<count($splitted);$i++)
   {
     $J=$i+1;
@@ -147,5 +147,18 @@ function RicercaNelSignificato($query,$word)
     $result=$conn->query($sql);
     $row=$result->fetch_assoc();
     return intval($row['count']);
+  }
+  function esistenzaId($Id){
+    $conn=DataConnect();
+    $sql="SELECT * FROM `parole` where Id=".$Id;
+    $result=$conn->query($sql);
+    $risultato="";
+    if($result->fetch_assoc()>0){
+      $risultato="bene";
+    }
+    else{
+      $risultato="male";
+    }
+    return $risultato;
   }
 ?>

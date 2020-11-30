@@ -10,7 +10,7 @@ $row = $ses_sql->fetch_assoc();
 $login_session = $row['username'];
 
 if(!isset($_SESSION['login'])){
-    header('location:../public/HomePage.php');
+    header('location:../HomePage');
     exit();
 }
 ?>
