@@ -13,7 +13,7 @@ if(isset($_POST['conferma'])){
     exit();
 }
 else{
-    header("location:Login.php");
+    header("location:Admin.php");
     exit();
 }}
 
