@@ -2,25 +2,19 @@
 session_start();
 include_once("session.php");
 include_once("../dal.php");
-if(esistenzaId($_SESSION['id'])=="male"){
-    echo "<script type='text/javascript'>alert(Id non esistente);</script>"; 
-    header("location:Admin");
-    exit();
-}
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(isset($_POST['conferma'])){
         $word=$_POST['voce'];
         $type=$_POST['type'];
         $mean=$_POST['mean'];
-        $sql= "INSERT INTO parole(Nome,Tipologia,significato) values( '".$word."', '".$type."', '".$mean."')";
+        $sql= "INSERT INTO sostantivi(Nome,FK_Tipologia,significato) values( '".$word."',(select t.IdT from tipologie t where t.Type='".$type."'), '".$mean."')";
         echo "<script type='text/javascript'>alert(".OperazioneRiga($sql).");</script>"; 
         header("location:Admin");
         exit();
     }else{
         header("location:Admin");
         exit();
-    }
-}
+    }}
 
 ?>
 <!DOCTYPE html>
@@ -32,7 +26,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 <body onload="EsciDallaPagina()">
     <div id="id01" class="modal">
-        <form class="modal-content animate" action="" method="post">
+        <form class="modal-content animate" action="" method="POST">
             <div class="imgcontainer">
                 <span onclick=" window.history.back()" class="close" title="Close Modal">&times;</span>
             </div>

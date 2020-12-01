@@ -13,7 +13,8 @@ return $conn;
 
 function Caricaretabella(){
 $conn=DataConnect();
-$query = "SELECT * FROM parole limit 500 ";
+$query = "SELECT  s.Id, s.Nome, t.Type as Tipologia, s.significato FROM sostantivi s 
+left join tipologie t on t.IdT=s.FK_Tipologia  limit 500";
 $result = $conn->query($query);
 while($row = $result->fetch_assoc()){
 echo " <tr> <th scope='row'>".$row['Id']."</th>";
@@ -37,7 +38,7 @@ catch(Exception $e){
 
 function EliminaRiga($id){
 $conn=DataConnect();
-$query= "DELETE FROM parole where Id=$id";
+$query= "DELETE FROM sostantivi where Id=$id";
 $result=$conn->query($query);
 if ($conn->affected_rows==1) {
     echo "<script type='text/javascript'>alert('riga eliminata con successo');</script>";
@@ -60,7 +61,8 @@ return $return;
 }
 function CaricaRiga($id){
     $conn=DataConnect();
-    $query= "SELECT * FROM parole where id=$id";
+    $query= "SELECT s.Nome, t.Type as Tipologia, s.significato FROM sostantivi s 
+    inner join tipologie t on t.IdT=s.FK_Tipologia  where Id=$id";
     $result=$conn->query($query);
     $row=$result->fetch_assoc();
     return $row;  
@@ -83,7 +85,7 @@ function CercaParole($query){
     $html.= " <p>".$J." : ".$splitted[$i]. "</p>";  
   }
   $html.= "</div><br><hr>";
-  if($row = $result->fetch_assoc())
+  if($result->fetch_row() > 0)
   {
     $html.= "<h3> more definitions for ".$row['Nome']."</h3><br><br> ";
   // output data of each row
@@ -143,14 +145,14 @@ function RicercaNelSignificato($query,$word)
 
   function countRows(){
     $conn=DataConnect();
-    $sql="SELECT count(*) as 'count' FROM `parole`";
+    $sql="SELECT count(*) as 'count' FROM `sostantivi`";
     $result=$conn->query($sql);
     $row=$result->fetch_assoc();
     return intval($row['count']);
   }
   function esistenzaId($Id){
     $conn=DataConnect();
-    $sql="SELECT * FROM `parole` where Id=".$Id;
+    $sql="SELECT * FROM `sostantivi` where Id=".$Id;
     $result=$conn->query($sql);
     $risultato="";
     if($result->fetch_assoc()>0){

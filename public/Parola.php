@@ -33,9 +33,11 @@ if(!isset($_GET['ok'])){
 $conn=DataConnect();
 $firstTime=false;
 $word=$_GET['search2'];
-$sql = "SELECT * FROM parole where nome='".$word."'";
+$sql = "SELECT s.Nome, t.Type as Tipologia, s.significato FROM sostantivi s 
+inner join tipologie t on t.IdT=s.FK_Tipologia where nome='".$word."'";
 echo CercaParole($sql);
-$sql="SELECT * FROM parole where significato LIKE '".$word."_'";
+$sql="SELECT s.Nome, t.Type as Tipologia, s.significato FROM sostantivi s 
+inner join tipologie t on t.IdT=s.FK_Tipologia where significato LIKE '%".$word."%'";
 if(!empty(RicercaNelSignificato($sql,$word)))
 {
   echo RicercaNelSignificato($sql,$word);
