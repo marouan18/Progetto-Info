@@ -12,7 +12,8 @@ if(isset($_POST['conferma'])){
     $word=$_POST['voce'];
     $type=$_POST['type'];
     $mean=$_POST['mean'];
-    $sql= "UPDATE parole SET Nome='".$word."', Tipologia='".$type."', significato='".$mean."' WHERE Id=".$_SESSION['id']."";
+    $sql= "UPDATE sostantivi s SET s.Nome='".$word."', s.significato='".$mean."', s.FK_Tipologia=(select t.IdT from tipologie t where t.Type='".$type."') 
+    WHERE s.Id=".$_SESSION['id']."";
 
     echo "<script type='text/javascript'>alert(".OperazioneRiga($sql).");</script>"; 
     header("location:Admin");
