@@ -7,7 +7,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   $word=Trim($_POST['search2']);
   $regex= "/([^0-9'])/";
   if(preg_match($regex, $word)||empty($word)){
-    echo "<script type='text/javascript'>alert('inserire Id corretto');</script>";
+    header("Location:errore.php?msg=inserire Id corretto");
   }else{
   if(isset($_POST['modify']))
   {
@@ -38,18 +38,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   
 </head>
 <body>
-<h1 class="Titolo">
-        If you are bored, you are in the right place😁
-</h1>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded">
-  <i class="Nome">My Dictionary</i>
-  <ul class="navbar-nav ml-auto">
-    <li class="active">
-      <a class="nav-link" href="Logout">Logout</a>
-    </li>
-  </ul>
-</nav>
-<br><br><br>
+<?php $param="Logout"; require("../header.php"); ?><br><br>
 <div class="container">
   <div class="row header">
   </div>

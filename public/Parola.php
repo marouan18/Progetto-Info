@@ -8,23 +8,7 @@
   <script src="../Javascript/scripts.js"></script>
 </head>
 <body>
-<h1 class="Titolo">
-        If you are bored, you are in the right place😁
-</h1>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded">
-  <i class="Nome">My Dictionary</i>
-  <ul class="navbar-nav ml-auto">
-    <li class="active">
-      <a class="nav-link" href="../Private/Login">Login</a>
-    </li>
-  </ul>
-</nav>
-<br>
-<form class="example"  method="GET" style="margin:auto;max-width:500px;">
-        <input id="id1" type="text" placeholder="search" name="search2">
-        <button  type="submit" name="ok"  ><i class="fa fa-search"></i></button>
-    </form>
-
+<?php $param="Login";require("../header.php"); ?>
 </body>
   </html>
   <?php
@@ -45,7 +29,7 @@ if(!empty(RicercaNelSignificato($sql,$word)))
   $word=Trim($_GET['search2']);
   $regex= "/([^A-z'])/";
   if(preg_match($regex, $word)||empty($word)){
-    echo "<script type='text/javascript'>alert('la tua ricerca per '+$word+' non ha prodotto risultati');</script>";
+   header("Location:errore.php?msg=la tua ricerca per ".$word." non ha prodotto risultati");
   }
   else{
     header("Location:parola.php?search2=".$_GET['search2']);  
