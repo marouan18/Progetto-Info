@@ -31,14 +31,7 @@ if($result->num_rows>0){
     <link rel="stylesheet" href="../CSS/Style.css">
     <script src="../Javascript/scripts.js"></script>
 </head>
-<body onload="EsciDallaPagina()">
-    <div id="id01" class="modal">
-        <form class="modal-content animate" action="" method="post">
-            <div class="imgcontainer">
-                <span onclick=" window.history.back()" class="close" title="Close Modal">&times;</span>
-            </div>
-            <div class="container">
-                
+<?php require("PrivateTemplate.php")?>                
                 <label for="uname"><b>Username</b></label>
                 <input type="text" placeholder="Enter Username" name="uname" required>
                 <label for="psw"><b>Password</b></label>

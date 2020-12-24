@@ -85,7 +85,7 @@ function CercaParole($query){
     $html.= " <p>".$J." : ".$splitted[$i]. "</p>";  
   }
   $html.= "</div><br><hr>";
-  if($result->fetch_row() > 0)
+  if($result->num_rows > 0)
   {
     $html.= "<h3> more definitions for ".$row['Nome']."</h3><br><br> ";
   // output data of each row
