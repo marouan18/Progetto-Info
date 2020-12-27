@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once("session.php");
+include("session.php");
 include_once("../dal.php");
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -16,7 +16,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     exit();
   }
   else{
-    EliminaRiga($_POST['search2']);
+    $messaggio=EliminaRiga($_POST['search2']);
+    header("Location:../errore.php?msg=".$messaggio);
   }}  
   if(isset($_POST['add'])){
     header("location:Aggiungi");

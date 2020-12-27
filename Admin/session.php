@@ -1,6 +1,10 @@
 <?php
-include('../dal.php');
-$conn=DataConnect();
+if(!isset($_SESSION['login'])){
+    header('location:../HomePage');
+    exit();
+}else{
+    include('../dal.php');
+    $conn=DataConnect();
 $user_check = $_SESSION['login'];
 
 $ses_sql = $conn->query("SELECT username FROM users WHERE username = '$user_check'");
@@ -8,9 +12,6 @@ $ses_sql = $conn->query("SELECT username FROM users WHERE username = '$user_chec
 $row = $ses_sql->fetch_assoc();
 
 $login_session = $row['username'];
-
-if(!isset($_SESSION['login'])){
-    header('location:../HomePage');
-    exit();
+$conn->close();
 }
 ?>

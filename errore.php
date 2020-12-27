@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="css/errorStyle.css">   
 </head>
 <body>
-<h1 ><?php echo $_GET['msg']?></h1>
-  <div> <span onclick=" window.history.back()">Torna Indietro</span></div>
+<div><h1 ><?php echo $_GET['msg']?></h1>
+ <span onclick=" window.history.back()">Torna Indietro</span></div>
 </body>
 </html>

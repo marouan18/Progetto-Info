@@ -27,6 +27,7 @@ if(isset($_GET['ok'])){
   <script src="Javascript/scripts.js"></script>
 </head>
 <body>
+  
   <?php $param="Login"; require("header.php"); ?>
   <form class="example"  method="GET" style="margin:auto;max-width:500px;">
         <input id="id1" type="text" placeholder="search" name="search2">
