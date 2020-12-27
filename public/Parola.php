@@ -17,14 +17,15 @@ if(!isset($_GET['ok'])){
 $conn=DataConnect();
 $firstTime=false;
 $word=$_GET['search2'];
-$sql = "SELECT s.Nome, t.Type as Tipologia, s.significato FROM sostantivi s 
-inner join tipologie t on t.IdT=s.FK_Tipologia where nome='".$word."'";
-echo CercaParole($sql);
-$sql="SELECT s.Nome, t.Type as Tipologia, s.significato FROM sostantivi s 
+/*$sql = "SELECT s.Nome, t.Type as Tipologia, s.significato FROM sostantivi s 
+inner join tipologie t on t.IdT=s.FK_Tipologia where nome='".$word."'";*/
+echo CercaParole($word);
+/*$sql="SELECT s.Nome, t.Type as Tipologia, s.significato FROM sostantivi s 
 inner join tipologie t on t.IdT=s.FK_Tipologia where significato LIKE '%".$word."%'";
-if(!empty(RicercaNelSignificato($sql,$word)))
+*/
+if(!empty(RicercaNelSignificato($word)))
 {
-  echo RicercaNelSignificato($sql,$word);
+  echo RicercaNelSignificato($word);
 }}else{
   $word=Trim($_GET['search2']);
   $regex= "/([^A-z'])/";

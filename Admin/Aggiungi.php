@@ -7,9 +7,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $word=$_POST['voce'];
         $type=$_POST['type'];
         $mean=$_POST['mean'];
-        $sql= "INSERT INTO sostantivi(Nome,FK_Tipologia,significato) values( '".$word."',(select t.IdT from tipologie t where t.Type='".$type."'), '".$mean."')";
-        echo "<script type='text/javascript'>alert(".OperazioneRiga($sql).");</script>"; 
-        header("location:Admin");
+      //  $sql= "INSERT INTO sostantivi(Nome,FK_Tipologia,significato) values( '".$word."',(select t.IdT from tipologie t where t.Type='".$type."'), '".$mean."')";
+        //echo "<script type='text/javascript'>alert(".OperazioneRiga($sql).");</script>"; 
+        $messaggio= aggiungereriga($word,$mean,$type);
+        header("location:../errore.php?msg=".$messaggio);
         exit();
     }else{
         header("location:Admin");
@@ -28,7 +29,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <label for="voce"><b>Voce</b></label>
                 <input type="text" placeholder="enter word" value="Voce" name="voce"required>
                 <label for="type"><b>Tipologia</b></label>
-                <input type="text" placeholder="enter word type" value="Tipo" name="type"required>
+                <?php echo Tipologie();?>
                 <label for="mean"><b>Significato</b></label>
                 <input type="text" placeholder="enter meaning" value="significato"name="mean" required>
                 <button style="width:49%;" type="submit" name="annulla">Annulla</button>

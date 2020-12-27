@@ -1,7 +1,7 @@
 <?php
-include("session.php");
 session_start();
-if(session_destroy()){
-    header('location: ../../HomePage');
-}
+unset($_SESSION['login']);
+session_destroy();
+header('location: ../HomePage');
+exit();
 ?>
