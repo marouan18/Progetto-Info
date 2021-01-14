@@ -11,3 +11,19 @@ div {
     transform: translate(-50%, -50%);
     color: white;
 }
+
+a:link,
+a:visited {
+    background-color: white;
+    color: rgb(11, 103, 223);
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+a:hover,
+a:active {
+    background-color: rgb(11, 103, 223);
+    color: white;
+}

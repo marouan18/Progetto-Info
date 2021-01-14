@@ -7,10 +7,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $word=$_POST['voce'];
         $type=$_POST['type'];
         $mean=$_POST['mean'];
-      //  $sql= "INSERT INTO sostantivi(Nome,FK_Tipologia,significato) values( '".$word."',(select t.IdT from tipologie t where t.Type='".$type."'), '".$mean."')";
-        //echo "<script type='text/javascript'>alert(".OperazioneRiga($sql).");</script>"; 
         $messaggio= aggiungereriga($word,$mean,$type);
-        header("location:../errore.php?msg=".$messaggio);
+        header("location:erroreprivato?msg=".$messaggio);
         exit();
     }else{
         header("location:Admin");

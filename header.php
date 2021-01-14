@@ -10,3 +10,7 @@
   </ul>
 </nav>
 <br>
+<form class="example"  method="GET" style="margin:auto;max-width:500px;">
+        <input id="id1" type="text" placeholder="search" name="search2">
+        <button  type="submit" name="ok"  ><i class="fa fa-search"></i></button>
+    </form>
