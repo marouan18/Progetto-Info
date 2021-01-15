@@ -25,9 +25,11 @@ if(!empty(RicercaNelSignificato($word)))
   $word=Trim($_GET['search2']);
   $regex= "/([^A-z'])/";
   if(preg_match($regex, $word)||empty($word)){
-   header("Location:errore.php?msg=la tua ricerca per ".$word." non ha prodotto risultati");
+   header("Location:errore.php?msg=impossibile cercare la parola ".$word." inserire solo caratteri dell'alfabeto");
    exit();
-  }
+  }  else if(strlen($word)<2){
+    header("Location:errore.php?msg=inserire una parola non una lettera");
+    exit();}  
   else{
     header("Location:parola.php?search2=".$_GET['search2']);  
     exit();

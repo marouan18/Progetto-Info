@@ -9,8 +9,11 @@ if(isset($_GET['ok'])){
   $word=Trim($_GET['search2']);
   $regex= "/([^A-z '])/";
   if(preg_match($regex, $word)||empty($word)){
-    header("Location:errore.php?msg=la tua ricerca per ".$word." non ha prodotto risultati");
+    header("Location:public/errore.php?msg=la tua ricerca per ".$word." non ha prodotto risultati");
     exit();}
+  else if(strlen($word)<2){
+    header("Location:public/errore.php?msg=inserire una parola non una lettera");
+    exit();}   
   else{
     header("Location:public/parola.php?search2=".$_GET['search2']);  
     exit();

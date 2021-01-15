@@ -34,18 +34,22 @@ function Login($usr,$pass){
 }
 function Caricaretabella($parola){
 $conn=DataConnect();
-$startTime=microtime(true);
 $variabile="";
-if($parola=="nome") $variabile="'nome'";
-else $variabile="nome";
+if($parola=="nome") {
+  $variabile="'nome'";
+  $query="SELECT * from (SELECT s.Id, s.Nome, t.Type as Tipologia, s.significato FROM sostantivi s 
+  left join tipologie t on t.IdT=s.FK_Tipologia where ".$variabile." like ?
+   order by s.Id desc LIMIT 15) Var1 order by Id ASC";
+}else {
+  $variabile="nome";
   $query = "SELECT  s.Id, s.Nome, t.Type as Tipologia, s.significato FROM sostantivi s 
   left join tipologie t on t.IdT=s.FK_Tipologia where ".$variabile." like ? limit 15";
+}
 $stmt = $conn->prepare($query);
 $stmt->bind_param('s',$parola); 
 $stmt->execute();
 $result= $stmt->get_result();
 $numrighe=$result->num_rows;
-$endTIme=microtime(true);
 if($numrighe>0){
 while($row = $result->fetch_assoc()){
 echo " <tr> <th scope='row'>".$row['Id']."</th>";
@@ -58,7 +62,6 @@ else{
   exit();
 }
 $conn->close();
-return $endTIme-$startTime;
 }
 
 function aggiungiAdmin($usr,$pass){
@@ -154,12 +157,14 @@ function CercaParole($word){
 }
 function RicercaNelSignificato($word){
   $conn=DataConnect();
-  $word1='%'.$word.'_';
-  $word2='%'.$word;
+  $word1='% '.$word.'_';
+  $word2='% '.$word." %";
+  $word3='% '.$word;
+  $word4=$word." %";
   $query="SELECT s.Nome, t.Type as Tipologia, s.significato FROM sostantivi s 
-  inner join tipologie t on t.IdT=s.FK_Tipologia where (significato LIKE ? or  significato LIKE ?) limit 10";
+  inner join tipologie t on t.IdT=s.FK_Tipologia where (significato LIKE ? or  significato LIKE ? or  significato LIKE ? or  significato LIKE ?) limit 5";
   $stmt = $conn->prepare($query);
-  $stmt->bind_param('ss', $word1,$word2); 
+  $stmt->bind_param('ssss', $word1,$word2,$word3,$word4); 
   $stmt->execute();
   $result = $stmt->get_result();
   $html="";
