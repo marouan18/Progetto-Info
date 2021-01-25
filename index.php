@@ -15,7 +15,7 @@ if(isset($_GET['ok'])){
     header("Location:public/errore.php?msg=inserire una parola non una lettera");
     exit();}   
   else{
-    header("Location:public/parola.php?search2=".$_GET['search2']);  
+    header("Location:Public/parola?search2=".$_GET['search2']);  
     exit();
   }
 }

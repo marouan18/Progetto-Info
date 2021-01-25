@@ -31,7 +31,7 @@ if(!empty(RicercaNelSignificato($word)))
     header("Location:errore.php?msg=inserire una parola non una lettera");
     exit();}  
   else{
-    header("Location:parola.php?search2=".$_GET['search2']);  
+    header("Location:parola?search2=".$_GET['search2']);  
     exit();
   }
 }

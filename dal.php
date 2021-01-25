@@ -176,7 +176,7 @@ function RicercaNelSignificato($word){
     while($row = $result->fetch_assoc()) {
       $html.= "<h2>".$row['Nome']." ".$row['Tipologia']."</h2><div>";
       $splitted=explode(";",$row['significato']);
-      $regex="/\b(".$word.")\b/";
+      $regex="/\b(".$word.")\b/i";
   for($i=0;$i<count($splitted);$i++)
   {
     $J=$i+1;
