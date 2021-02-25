@@ -1,36 +1,81 @@
 <?php
 function DataConnect(){
-$servername = "localhost";
+$servername = "127.0.0.1";
 $username = "root";
 $password = "root";
 $dbname = "dictionary";
 $conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
+if ($conn->connect_error)
   die("Connection failed: " . $conn->connect_error);
-}
 return $conn;
 }
 
-function Caricaretabella(){
+function Login($usr,$pass){
+  $errore="";
+  $conn=DataConnect();
+  $query = "SELECT * FROM users WHERE username = ?";
+  $stmt = $conn->prepare($query);
+  $stmt->bind_param('s', $usr); 
+  $stmt->execute();
+  $result = $stmt->get_result();
+  if($result->num_rows>0){
+      $row=$result->fetch_assoc();
+      if(password_verify($pass,$row['password'])){
+          $_SESSION['login'] =$usr;    
+          header("location:Admin");
+              exit();
+      }
+      else
+          $errore="password sbagliata";
+  }else
+      $errore="username o password sbagliati";
+  $conn->close();
+  return $errore;
+}
+function Caricaretabella($parola){
 $conn=DataConnect();
-$query = "SELECT  s.Id, s.Nome, t.Type as Tipologia, s.significato FROM sostantivi s 
-left join tipologie t on t.IdT=s.FK_Tipologia  limit 500";
-$result = $conn->query($query);
+$variabile="";
+if($parola=="nome") {
+  $variabile="'nome'";
+  $query="SELECT * from (SELECT s.Id, s.Nome, t.Type as Tipologia, s.significato FROM sostantivi s 
+  left join tipologie t on t.IdT=s.FK_Tipologia where ".$variabile." like ?
+   order by s.Id desc LIMIT 15) Var1 order by Id ASC";
+}else {
+  $variabile="nome";
+  $query = "SELECT  s.Id, s.Nome, t.Type as Tipologia, s.significato FROM sostantivi s 
+  left join tipologie t on t.IdT=s.FK_Tipologia where ".$variabile." like ? limit 15";
+}
+$stmt = $conn->prepare($query);
+$stmt->bind_param('s',$parola); 
+$stmt->execute();
+$result= $stmt->get_result();
+$numrighe=$result->num_rows;
+if($numrighe>0){
 while($row = $result->fetch_assoc()){
 echo " <tr> <th scope='row'>".$row['Id']."</th>";
 echo "<td>".$row['Nome']."</td>";
 echo "<td>".$row['Tipologia']."</td>";
 echo "<td>".$row['significato']."</td> </tr>";
 }}
+else{
+  header("Location:erroreprivato?msg=parola non trovata");
+  exit();
+}
+$conn->close();
+}
 
 function aggiungiAdmin($usr,$pass){
 $conn=DataConnect();
 $username=$usr;
 $password=$pass;
 $hash=password_hash($password,PASSWORD_DEFAULT);
-$query = "insert into users(username,password) values('$username','$hash')";
+$query = "insert into users(username,password) values(?,?)";
+$stmt = $conn->prepare($query);
+$stmt->bind_param('ss',$username, $hash); 
+$stmt->execute();
 try{
-$result = $conn->query($query);
+   $stmt->get_result();
+   $conn->close();
 }
 catch(Exception $e){
     echo $e;
@@ -39,40 +84,31 @@ catch(Exception $e){
 function EliminaRiga($id){
 $msg="";
 $conn=DataConnect();
-$query= "DELETE FROM sostantivi where Id=$id";
-$result=$conn->query($query);
-if ($conn->affected_rows==1) {
-    $msg="riga eliminata con successo";
-    } else {
-    $msg="Id non trovato"; 
-    } 
-  $conn->close();
-  return $msg;
+$query= "DELETE FROM sostantivi where Id=?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param('d',$id); 
+return  OperazioneRiga($stmt);
 }
 
 function OperazioneRiga($conn){
 $return=0;
 $status=$conn->execute();
-if($status===true){
- $return="Operazione eseguita con successo";
-}
-else{
-    $return="operazione non eseguita";
-}
+if($status===false)
+  $return="Operazione non eseguita";
+else
+  $return="Operazione eseguita con successo";
+$conn->close();
 return $return;
 }
 function CaricaRiga($id){
     $conn=DataConnect();
     $stmt = $conn->prepare( "SELECT s.Nome, t.Type as Tipologia, s.significato FROM sostantivi s 
     inner join tipologie t on t.IdT=s.FK_Tipologia  where Id=?");
-    $stmt->bind_param('s', $id); // 's' specifies the variable type => 'string'
+    $stmt->bind_param('s', $id);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
-    /*$query= "SELECT s.Nome, t.Type as Tipologia, s.significato FROM sostantivi s 
-    inner join tipologie t on t.IdT=s.FK_Tipologia  where Id=$id";
-    $result=$conn->query($query);
-    $row=$result->fetch_assoc();*/
+    $conn->close();
     return $row;  
 }
 
@@ -81,7 +117,7 @@ function CercaParole($word){
   $query="SELECT s.Nome, t.Type as Tipologia, s.significato FROM sostantivi s 
   inner join tipologie t on t.IdT=s.FK_Tipologia where nome=?";
   $stmt = $conn->prepare($query);
-  $stmt->bind_param('s', $word); // 's' specifies the variable type => 'string'
+  $stmt->bind_param('s', $word);
   $stmt->execute();
   $result = $stmt->get_result();
   $html="";
@@ -99,7 +135,7 @@ function CercaParole($word){
     $html.= " <p>".$J." : ".$splitted[$i]. "</p>";  
   }
   $html.= "</div><br><hr>";
-  if( $numrighe>0)
+  if($numrighe>0)
   {
     $html.= "<h3> more definitions for ".$row['Nome']."</h3><br><br> ";
   // output data of each row
@@ -114,17 +150,21 @@ function CercaParole($word){
   $html.= "</div><br><hr>";
     }
   }}else {
-    $html.= "<br><br><h3>parola non trovata</h3>";
+    $html.= "<br><br><h3>la parola ".$word." non è stata trovata</h3>";
    }
+   $conn->close();
   return $html;
 }
 function RicercaNelSignificato($word){
   $conn=DataConnect();
-  $word='%'.$word.'%';
+  $word1='% '.$word.'_';
+  $word2='% '.$word." %";
+  $word3='% '.$word;
+  $word4=$word." %";
   $query="SELECT s.Nome, t.Type as Tipologia, s.significato FROM sostantivi s 
-  inner join tipologie t on t.IdT=s.FK_Tipologia where significato LIKE ?";
+  inner join tipologie t on t.IdT=s.FK_Tipologia where (significato LIKE ? or  significato LIKE ? or  significato LIKE ? or  significato LIKE ?) limit 5";
   $stmt = $conn->prepare($query);
-  $stmt->bind_param('s', $word); // 's' specifies the variable type => 'string'
+  $stmt->bind_param('ssss', $word1,$word2,$word3,$word4); 
   $stmt->execute();
   $result = $stmt->get_result();
   $html="";
@@ -136,7 +176,7 @@ function RicercaNelSignificato($word){
     while($row = $result->fetch_assoc()) {
       $html.= "<h2>".$row['Nome']." ".$row['Tipologia']."</h2><div>";
       $splitted=explode(";",$row['significato']);
-      $regex="/\b(".$word.")\b/";
+      $regex="/\b(".$word.")\b/i";
   for($i=0;$i<count($splitted);$i++)
   {
     $J=$i+1;
@@ -159,6 +199,7 @@ function RicercaNelSignificato($word){
   $html.= "</div><br><hr>";
     }
   }
+  $conn->close();
    return $html;
   }
 
@@ -167,26 +208,23 @@ function RicercaNelSignificato($word){
     $stmt = $conn->prepare("SELECT count(*) as 'count' FROM `sostantivi`");
     $stmt->execute();
     $result = $stmt->get_result();
-   /* $sql="SELECT count(*) as 'count' FROM `sostantivi`";
-    $result=$conn->query($sql);
-    */$row=$result->fetch_assoc();
+    $row=$result->fetch_assoc();
+    $conn->close();
     return intval($row['count']);
   }
+
   function esistenzaId($Id){
     $conn=DataConnect();
-    $stmt = $conn->prepare("SELECT * FROM `sostantivi` where Id=?");
-    $stmt->bind_param('d', $Id); // 's' specifies the variable type => 'string'
+    $stmt = $conn->prepare("SELECT Id FROM `sostantivi` where Id=?");
+    $stmt->bind_param('d', $Id); 
     $stmt->execute();
     $result = $stmt->get_result();
-   /* $sql="SELECT * FROM `sostantivi` where Id=".$Id;
-    $result=$conn->query($sql);
-    */$risultato="";
-    if($result->num_rows>0){
+    $risultato="";
+    if($result->num_rows>0)
       $risultato="bene";
-    }
-    else{
+    else
       $risultato="male";
-    }
+    $conn->close();
     return $risultato;
   }
 
@@ -195,14 +233,14 @@ function RicercaNelSignificato($word){
     $sql= "UPDATE sostantivi s SET s.Nome=?, s.significato=?, s.FK_Tipologia=(select t.IdT from tipologie t where t.Type=?) 
     WHERE s.Id=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('sssd', $word,$mean,$type,$Id); // 's' specifies the variable type => 'string'
+    $stmt->bind_param('sssd', $word,$mean,$type,$Id);
     return  OperazioneRiga($stmt);
   }
   function aggiungereriga($word,$mean,$type){
     $conn=DataConnect();
     $sql= "INSERT INTO sostantivi(Nome,FK_Tipologia,significato) values( ?,(select t.IdT from tipologie t where t.Type=?), ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('sss', $word,$type,$mean); // 's' specifies the variable type => 'string'
+    $stmt->bind_param('sss', $word,$type,$mean); 
     return OperazioneRiga($stmt);
 
   }
@@ -217,6 +255,7 @@ function RicercaNelSignificato($word){
       $html.="<option value='".$row['Type']."'>".$row['Type']."</option>";
     }
     $html.="</select>";
+    $conn->close();
     return $html;
   }
 ?>

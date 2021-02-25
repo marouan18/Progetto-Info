@@ -9,6 +9,7 @@
 </head>
 <body>
 <?php $param="Login";require("../header.php"); ?>
+<br><br>
 </body>
   </html>
   <?php
@@ -17,23 +18,20 @@ if(!isset($_GET['ok'])){
 $conn=DataConnect();
 $firstTime=false;
 $word=$_GET['search2'];
-/*$sql = "SELECT s.Nome, t.Type as Tipologia, s.significato FROM sostantivi s 
-inner join tipologie t on t.IdT=s.FK_Tipologia where nome='".$word."'";*/
 echo CercaParole($word);
-/*$sql="SELECT s.Nome, t.Type as Tipologia, s.significato FROM sostantivi s 
-inner join tipologie t on t.IdT=s.FK_Tipologia where significato LIKE '%".$word."%'";
-*/
 if(!empty(RicercaNelSignificato($word)))
-{
   echo RicercaNelSignificato($word);
-}}else{
+}else{
   $word=Trim($_GET['search2']);
   $regex= "/([^A-z'])/";
   if(preg_match($regex, $word)||empty($word)){
-   header("Location:errore.php?msg=la tua ricerca per ".$word." non ha prodotto risultati");
-  }
+   header("Location:errore.php?msg=impossibile cercare la parola ".$word." inserire solo caratteri dell'alfabeto");
+   exit();
+  }  else if(strlen($word)<2){
+    header("Location:errore.php?msg=inserire una parola non una lettera");
+    exit();}  
   else{
-    header("Location:parola.php?search2=".$_GET['search2']);  
+    header("Location:parola?search2=".$_GET['search2']);  
     exit();
   }
 }

@@ -6,21 +6,8 @@ $conn=DataConnect();
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 $username =$_POST['uname'];
 $password =$_POST['psw'];
-$query = "SELECT * FROM users WHERE username = '".$username."'";
-$result = $conn->query($query);
-if($result->num_rows>0){
-    $row=$result->fetch_assoc();
-    if(password_verify($password,$row['password'])){
-        $_SESSION['login'] =$username;    
-        header("location:Admin");
-            exit();
-    }
-    else{
-        $error="password sbagliata";
-    }
-}else{
-    $error="username o password sbagliati";
-    }
+$error=Login($username,$password);
+
 }
 ?>
 <!DOCTYPE html>
